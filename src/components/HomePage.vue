@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="product-container">
         <Filters />
         <ProductList />
     </div>
@@ -16,3 +16,11 @@ export default {
     },
 };
 </script>
+
+<style scoped> 
+
+.product-container{
+   max-width: 1170px;
+    margin: 0 auto;
+}
+</style>

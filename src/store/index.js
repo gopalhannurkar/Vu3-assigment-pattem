@@ -10,6 +10,7 @@ export default createStore({
         basket: [], // Shopping basket
         searchQuery: '', // Search query
         selectedCategories: [], // Selected categories for filtering
+        favorites: [], // List of favorited products
     },
     mutations: {
         setProducts(state, { products, total }) {
@@ -48,6 +49,14 @@ export default createStore({
         removeFromBasket(state, product) {
             state.basket = state.basket.filter(item => item.id !== product.id);
         },
+        toggleFavorite(state, product) {
+            const index = state.favorites.findIndex(p => p.id === product.id);
+            if (index === -1) {
+                state.favorites.push(product); // Add to favorites
+            } else {
+                state.favorites.splice(index, 1); // Remove from favorites
+            }
+        },
     },
     actions: {
         async fetchProducts({ commit, state }, { search = '' }) {
@@ -84,6 +93,9 @@ export default createStore({
         },
         totalPrice(state) {
             return state.basket.reduce((total, item) => total + item.price * item.quantity, 0);
+        },
+        isFavorited: (state) => (product) => {
+            return state.favorites.some(p => p.id === product.id); // Check if a product is favorited
         },
     },
 });

@@ -10,7 +10,14 @@
                 <div class="product-details">
                     <h3>{{ product.title }}</h3>
                     <p>${{ product.price }}</p>
-                    <button @click="addToBasket(product)">Add to Basket</button>
+                    <div class="product-actions">
+                        <button @click="addToBasket(product)" class="add-to-basket-btn">
+                            Add to Basket
+                        </button>
+                        <button @click="toggleFavorite(product)" class="favorite-btn" :class="{ favorited: isFavorited(product) }">
+                            <i class="fas fa-heart"></i> <!-- Favorite icon -->
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,10 +38,16 @@ export default {
         canLoadMore() {
             return this.$store.getters.canLoadMore; // Check if more products can be loaded
         },
+        isFavorited() {
+            return this.$store.getters.isFavorited; // Get the isFavorited getter from the store
+        },
     },
     methods: {
         addToBasket(product) {
             this.$store.commit('addToBasket', product);
+        },
+        toggleFavorite(product) {
+            this.$store.commit('toggleFavorite', product); // Toggle favorite status
         },
         loadMore() {
             this.$store.dispatch('fetchProducts', { search: this.$store.state.searchQuery }); // Fetch more products
@@ -89,17 +102,33 @@ export default {
     font-size: 14px;
     color: #555;
 }
-.product-details button {
+.product-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Push buttons to the bottom */
+}
+.add-to-basket-btn  {
     padding: 10px;
     background-color: darkblue;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 25px;
     cursor: pointer;
     margin-top: auto; /* Push the button to the bottom */
 }
-.product-details button:hover {
+.add-to-basket-btn :hover {
     background-color: #369f6e;
+}
+.favorite-btn {
+    background-color: transparent;
+    border: none;
+    color: #ccc; /* Default color for unfavorited icon */
+    cursor: pointer;
+    font-size: 18px;
+}
+.favorite-btn.favorited {
+    color: red; /* Color for favorited icon */
 }
 .view-more-btn {
     margin-top: 20px;

@@ -120,9 +120,8 @@ export default {
 
 <style scoped>
 .cart-page {
-    /* padding: 20px; */
-    /* max-width: 800px; */
-    /* margin: 0 auto; */
+    max-width: 1170px;
+    margin: 0 auto;
     display:flex;
     justify-content:space-between;
     gap: 50px;
