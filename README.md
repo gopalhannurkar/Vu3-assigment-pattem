@@ -1,5 +1,8 @@
 # product-page
-
+```
+git clone https://github.com/gopalhannurkar/Vu3-assigment-pattem.git
+cd Vu3-assigment-pattem
+```
 ## Project setup
 ```
 npm install
